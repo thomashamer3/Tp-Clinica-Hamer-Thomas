@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-blue">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="bienvenida" (click)="salir()">
+      <mat-icon
+        aria-hidden="false"
+        aria-label="Example home icon"
+        fontIcon="home"
+      ></mat-icon>
+    </a>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li *ngIf="perfilActual === 'Administrador'" class="nav-item">
+          <button class="nav-link btn">
+            <span>Usuarios</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container pt-4">
+    <div *ngIf="habilitarSeccionUsuarios && perfilActual === 'Administrador'">
+      <app-seccion-usuarios></app-seccion-usuarios>
+    </div>
+  </div>
+</main>

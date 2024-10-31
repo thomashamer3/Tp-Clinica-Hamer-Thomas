@@ -1,0 +1,78 @@
+
+
+<form id="contact-form" [formGroup]="form" class="form_class">
+    <div class="head">
+        <button class="btn about-btn" (click)="volver()" *ngIf="mostrarVolver">
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+            <i class="ti-arrow-left"></i>
+        </button>
+        <h1>Registrar Paciente</h1>
+    </div>
+    <div class="row">
+        
+            <div class="col-lg-6 col-md-6">
+                <div class="form-box subject-icon">
+                    <label>Mail:</label>
+                    <input class="field_class" type="Email" formControlName="mail" name="mail" placeholder="Mail">
+                    <span *ngIf="form.controls['mail'].errors?.['required'] && form.controls['mail'].touched"  style="color: red;"> Mail es requerido</span>
+                    <span *ngIf="form.controls['mail'].errors?.['email'] && form.controls['mail'].touched"  style="color: red;"> Mail invalido</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-box subject-icon">
+                    <label>Clave:</label>
+                    <input class="field_class" type="password" formControlName="clave" name="clave" placeholder="Clave">
+                    <span *ngIf="form.controls['clave'].errors?.['required'] && form.controls['clave'].touched"  style="color: red;"> Clave es requerido</span>
+                    <span *ngIf="form.controls['clave'].errors?.['minlength'] && form.controls['clave'].touched"  style="color: red;"> Minimo 6 caracteres</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-box subject-icon">        
+                    <label>Nombre:</label>
+                    <input class="field_class" type="text" formControlName="nombre" name="nombre" placeholder="Nombre" >
+                    <span *ngIf="form.controls['nombre'].errors?.['required'] && form.controls['nombre'].touched"  style="color: red;"> Nombre es requerido</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-box subject-icon">
+                    <label>Apellido:</label>
+                    <input class="field_class" type="text" formControlName="apellido" name="apellido" placeholder="Apellido">
+                    <span *ngIf="form.controls['apellido'].errors?.['required'] && form.controls['apellido'].touched"  style="color: red;"> Apellido es requerido</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-box subject-icon">
+                    <label>Edad:</label>
+                    <input class="field_class" type="number" formControlName="edad" name="edad" placeholder="Edad">
+                    <span *ngIf="form.controls['edad'].errors?.['required'] && form.controls['edad'].touched"  style="color: red;"> Edad es requerido</span>
+                    <span *ngIf="(form.controls['edad'].errors?.['min'] || form.controls['edad'].errors?.['max']) && form.controls['edad'].touched"  style="color: red;"> Edad entre 18 y 99 años</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-box subject-icon">
+                    <label>DNI:</label>
+                    <input class="field_class" type="number" formControlName="dni" name="dni" placeholder="DNI">
+                    <span *ngIf="form.controls['dni'].errors?.['required'] && form.controls['dni'].touched"  style="color: red;"> DNI es requerido</span>
+                    <span *ngIf="form.controls['dni'].errors?.['pattern'] && form.controls['dni'].touched"  style="color: red;"> DNI invalido</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-box subject-icon">
+                    <label>Obra Social:</label>
+                    <input class="field_class" type="text" formControlName="obraSocial" name="obraSocial" placeholder="Obra social">
+                    <span *ngIf="form.controls['obraSocial'].errors?.['required'] && form.controls['obraSocial'].touched"  style="color: red;"> Obra social es requerido</span>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-box subject-icon">
+                    <label>Imágenes de perfil:</label>
+                    <input class="field_class" type="file" (change)="imagenCargada($event)" id="images" name="images" multiple>
+                    <span *ngIf="(this.imagenes ? this.imagenes.length : 0 ) !== 2 && yaCargo"  style="color: red;"> 2 imagenes son requeridas</span>
+                </div>
+            </div>
+            
+            <button class="submit_class" (click)="enviar()">Enviar</button>
+       
+        
+    </div>
+</form>

@@ -1,0 +1,189 @@
+<mat-card class="p-3">
+    <div class="row">
+        <div class="col-md-6">
+            <mat-card-title>
+                <div class="row">
+                    <h3>Pacientes:</h3>
+                    <mat-progress-spinner *ngIf="cargando" mode="indeterminate" diameter="30" color="primary" class="ml-3"></mat-progress-spinner>
+                </div>
+            </mat-card-title>
+        </div>
+    </div>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="listaPacientes">
+
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.nombre}} </td>
+            </ng-container>
+            <ng-container matColumnDef="apellido">
+                <th mat-header-cell *matHeaderCellDef> Apellido </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.apellido}} </td>
+            </ng-container>
+            <ng-container matColumnDef="edad">
+                <th mat-header-cell *matHeaderCellDef> Edad </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.edad}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dni">
+                <th mat-header-cell *matHeaderCellDef> DNI </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.dni}} </td>
+            </ng-container>
+            <ng-container matColumnDef="obraSocial">
+                <th mat-header-cell *matHeaderCellDef> Obra social </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.obraSocial}} </td>
+            </ng-container>
+            <ng-container matColumnDef="mail">
+                <th mat-header-cell *matHeaderCellDef> Mail </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.mail}} </td>
+            </ng-container>
+            <ng-container matColumnDef="imagenPerfil1">
+                <th mat-header-cell *matHeaderCellDef> Imagen perfil 1 </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> <img src={{element.data.fotos[0]}} alt="" height="50px" width="auto"></td>
+            </ng-container>
+            <ng-container matColumnDef="imagenPerfil2">
+                <th mat-header-cell *matHeaderCellDef> Imagen perfil 2 </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> <img src={{element.data.fotos[1]}} alt="" height="50px" width="auto"></td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="tablePacientes"></tr>
+            <tr mat-row *matRowDef="let row; columns: tablePacientes;"></tr>
+        </table>
+
+        <mat-paginator #paginator2 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+
+    <div class="col-lg-12 col-md-12 mt-3">
+        <div class="form-box subject-icon">
+            <button class="btn btn-primary" (click)="agregarPaciente()">Agregar paciente</button>
+        </div>
+    </div>
+</mat-card>
+
+<mat-card class="p-3 mt-3">
+    <div class="row">
+        <div class="col-md-6">
+            <mat-card-title>
+                <div class="row">
+                    <h3>Especialistas:</h3>
+                    <mat-progress-spinner *ngIf="cargando" mode="indeterminate" diameter="30" color="primary" class="ml-3"></mat-progress-spinner>
+                </div>
+            </mat-card-title>
+        </div>
+    </div>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="lista">
+
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.nombre}} </td>
+            </ng-container>
+            <ng-container matColumnDef="apellido">
+                <th mat-header-cell *matHeaderCellDef> Apellido </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.apellido}} </td>
+            </ng-container>
+            <ng-container matColumnDef="edad">
+                <th mat-header-cell *matHeaderCellDef> Edad </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.edad}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dni">
+                <th mat-header-cell *matHeaderCellDef> DNI </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.dni}} </td>
+            </ng-container>
+            <ng-container matColumnDef="especialidades">
+                <th mat-header-cell *matHeaderCellDef> Especialidades </th>
+                <td mat-cell *matCellDef="let element">
+                    <button type="button" mat-icon-button matTooltip="Ver especialidades" class="boton btn-dark" (click)="verEspecialidades(element)">
+                        <mat-icon class="material-icons">remove_red_eye</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="mail">
+                <th mat-header-cell *matHeaderCellDef> Mail </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.mail}} </td>
+            </ng-container>
+            <ng-container matColumnDef="imagenPerfil">
+                <th mat-header-cell *matHeaderCellDef> Imagen perfil </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> <img src={{element.data.fotos[0]}} alt="" height="50px" width="auto"></td>
+            </ng-container>
+            <ng-container matColumnDef="check" >
+                <th mat-header-cell *matHeaderCellDef>Aprobado</th>
+                <td mat-cell *matCellDef="let element">
+                  <input type="checkbox" class="custom-checkbox" (change)="aprobarEspecialista(element)" [checked]="element.data.cuentaAprobada">
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="tableDetalle"></tr>
+            <tr mat-row *matRowDef="let row; columns: tableDetalle;"></tr>
+        </table>
+
+        <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+
+    <div class="col-lg-12 col-md-12 mt-3">
+        <div class="form-box subject-icon">
+            <button class="btn btn-primary" (click)="agregarEspecialista()">Agregar especialista</button>
+        </div>
+    </div>
+    
+</mat-card>
+
+<mat-card class="p-3 mt-3">
+    <div class="row">
+        <div class="col-md-6">
+            <mat-card-title>
+                <div class="row">
+                    <h3>Administradores:</h3>
+                    <mat-progress-spinner *ngIf="cargando" mode="indeterminate" diameter="30" color="primary" class="ml-3"></mat-progress-spinner>
+                </div>
+            </mat-card-title>
+        </div>
+    </div>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="listaAdministradores">
+
+            <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.nombre}} </td>
+            </ng-container>
+            <ng-container matColumnDef="apellido">
+                <th mat-header-cell *matHeaderCellDef> Apellido </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.apellido}} </td>
+            </ng-container>
+            <ng-container matColumnDef="edad">
+                <th mat-header-cell *matHeaderCellDef> Edad </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.edad}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dni">
+                <th mat-header-cell *matHeaderCellDef> DNI </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.dni}} </td>
+            </ng-container>
+            <ng-container matColumnDef="mail">
+                <th mat-header-cell *matHeaderCellDef> Mail </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.datos.mail}} </td>
+            </ng-container>
+            <ng-container matColumnDef="imagenPerfil">
+                <th mat-header-cell *matHeaderCellDef> Imagen perfil </th>
+                <td mat-cell *matCellDef="let element" style="font-size: 20px;"> <img src={{element.data.fotos[0]}} alt="" height="50px" width="auto"></td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="tableAdministradores"></tr>
+            <tr mat-row *matRowDef="let row; columns: tableAdministradores;"></tr>
+        </table>
+
+        <mat-paginator #paginator3 [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+
+    <div class="col-lg-12 col-md-12 mt-3">
+        <div class="form-box subject-icon">
+            <button class="btn btn-primary" (click)="agregarAdministrador()">Agregar administrador</button>
+        </div>
+    </div>
+</mat-card>
