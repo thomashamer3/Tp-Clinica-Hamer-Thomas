@@ -1,0 +1,77 @@
+<mat-card class="m-3" style="max-height: 500px; overflow-y: auto">
+  <div style="display: flex; justify-content: center" *ngIf="cargando">
+    <mat-progress-spinner
+      mode="indeterminate"
+      diameter="70"
+      color="primary"
+      class=""
+    ></mat-progress-spinner>
+  </div>
+  <div *ngIf="indice === 0 && !cargando">
+    <div class="section-tittle section-tittle2 mt-3">
+      <span>Especialistas:</span>
+    </div>
+    <div class="especialidades-grid ml-5 mb-5 mt-5">
+      <div *ngFor="let especialista of especialistas" class="especialidad-item">
+        <button
+          class="especialista-button"
+          (click)="seleccionarEspecialista(especialista)"
+        >
+          <div class="nombre-especialidad">
+            {{ especialista.data.datos.apellido }}
+          </div>
+          <img
+            [src]="especialista.data.fotos[0]"
+            class="especialista-img"
+            alt="{{ especialista.data.datos.apellido }}"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="indice === 1 && !cargando">
+    <div class="section-tittle section-tittle2 mt-3">
+      <span>Especialidades:</span>
+    </div>
+    <div class="especialidades-grid ml-5 mb-5 mt-5">
+      <div
+        *ngFor="let especialidad of especialidadesFiltradas"
+        class="especialidad-item"
+      >
+        <button
+          class="especialidad-button"
+          (click)="seleccionarEspecialidad(especialidad)"
+        >
+          <img
+            [src]="
+              especialidad.data.foto
+                ? especialidad.data.foto
+                : '  https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/especialidades%2Fdefaultespecialidad.png?alt=media&token=6b80e0bb-762a-4329-a7c2-63490c9fe6ea'
+            "
+            class="especialidad-img"
+            alt="{{ especialidad.data.nombre }}"
+          />
+          <div class="nombre-especialidad">{{ especialidad.data.nombre }}</div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="indice === 2 && !cargando">
+    <div class="section-tittle section-tittle2 mt-3">
+      <span>Pacientes:</span>
+    </div>
+    <div class="especialidades-grid ml-5 mb-5 mt-5">
+      <div *ngFor="let paciente of pacientes" class="especialidad-item">
+        <button (click)="seleccionarPaciente(paciente)">
+          <img
+            [src]="paciente.data.fotos[0]"
+            alt="{{ paciente.data.datos.apellido }}"
+          />
+          <div class="nombre-especialidad">
+            {{ paciente.data.datos.apellido }}
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</mat-card>

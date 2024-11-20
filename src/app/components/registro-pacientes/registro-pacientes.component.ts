@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { FormPacienteComponent } from "../form-paciente/form-paciente.component";
+import { MatCardModule } from '@angular/material/card';
+import { FormPacienteComponent } from '../../components/form-paciente/form-paciente.component';
 
 @Component({
   selector: 'app-registro-pacientes',
   standalone: true,
-  imports: [FormPacienteComponent],
+  imports: [MatCardModule, FormPacienteComponent],
   templateUrl: './registro-pacientes.component.html',
   styleUrl: './registro-pacientes.component.css'
 })

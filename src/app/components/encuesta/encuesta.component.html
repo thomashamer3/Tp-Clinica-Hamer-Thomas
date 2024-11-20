@@ -1,0 +1,67 @@
+<mat-card>
+    <form [formGroup]="form" *ngIf="data.tipo === 'Encuesta'">
+        <h2>Experiencia con la Clínica Hamer</h2>
+        
+        <div *ngIf="indice === 0">
+            <label for="calificacion">1. {{pregunta1}}</label>
+            <div class="rating">
+            <input type="radio" name="1" formControlName="pregunta1" name="pregunta1" value="5"> Muy Satisfecho <br>
+            <input type="radio" name="1" formControlName="pregunta1" name="pregunta1" value="4"> Satisfecho <br>
+            <input type="radio" name="1" formControlName="pregunta1" name="pregunta1" value="3"> Neutral <br>
+            <input type="radio" name="1" formControlName="pregunta1" name="pregunta1" value="2"> Insatisfecho <br>
+            <input type="radio" name="1" formControlName="pregunta1" name="pregunta1" value="1"> Muy insatisfecho <br>
+            </div>
+        
+            <label for="calificacion">2. {{pregunta2}}</label>
+            <div class="rating">
+            <input type="radio" name="2" formControlName="pregunta2" name="pregunta2" value="5"> Muy satisfecho <br>
+            <input type="radio" name="2" formControlName="pregunta2" name="pregunta2" value="4"> Satisfecho <br>
+            <input type="radio" name="2" formControlName="pregunta2" name="pregunta2" value="3"> Neutral <br>
+            <input type="radio" name="2" formControlName="pregunta2" name="pregunta2" value="2"> Insatisfecho <br>
+            <input type="radio" name="2" formControlName="pregunta2" name="pregunta2" value="1"> Muy insatisfecho <br>
+            </div>
+            <button class="mt-3" style="width: 5vw;float:right" (click)="siguiente()">Siguiente</button>
+        </div>
+        
+        <div *ngIf="indice === 1">
+            <label for="calificacion">3. {{pregunta3}}</label>
+            <div class="rating">
+              <input type="radio" name="3" formControlName="pregunta3" name="pregunta3" value="5"> Cumplió completamente <br>
+              <input type="radio" name="3" formControlName="pregunta3" name="pregunta3" value="4"> Cumplió <br>
+              <input type="radio" name="3" formControlName="pregunta3" name="pregunta3" value="3"> Cumplió parcialmente <br>
+              <input type="radio" name="3" formControlName="pregunta3" name="pregunta3" value="2"> No cumplió <br>
+              <input type="radio" name="3" formControlName="pregunta3" name="pregunta3" value="1"> No cumplió para nada <br>
+            </div>
+    
+            <label for="calificacion">4. {{pregunta4}}</label>
+            <div class="rating">
+              <input type="radio" name="4" formControlName="pregunta4" name="pregunta4" value="5"> Definitivamente sí <br>
+              <input type="radio" name="4" formControlName="pregunta4" name="pregunta4" value="4"> Probablemente sí <br>
+              <input type="radio" name="4" formControlName="pregunta4" name="pregunta4" value="3"> No estoy seguro/a <br>
+              <input type="radio" name="4" formControlName="pregunta4" name="pregunta4" value="2"> Probablemente no <br>
+              <input type="radio" name="4" formControlName="pregunta4" name="pregunta4" value="1"> Definitivamente no <br>
+            </div>
+            <button class="mt-3" style="width: 5vw;float:left" (click)="atras()">Atras</button>
+            <button class="mt-3" style="width: 5vw;float:right" (click)="enviar()" >Enviar</button>
+        </div>
+        
+
+      </form>
+
+      <form  [formGroup]="formEspe"  *ngIf="data.tipo !== 'Encuesta'">        
+        
+        <h2>Experiencia con el especialista</h2>
+        <label for="calificacion">1. En una escala del 1 al 10, ¿cómo calificaría su experiencia general con la Clínica Hamer?</label>
+        <div class="rating">
+          <mat-slider  min="1" max="10" step="1" >
+            <input matSliderThumb #itemHeight [value]="encuesta?.calificacion">
+          </mat-slider>
+          <span>Puntuación seleccionada: {{ itemHeight.value}}</span>
+        </div>
+        <label for="calificacion">2. ¿Tiene algún comentario adicional sobre su experiencia con el especialista ?</label>
+        <div class="rating" >
+          <input class="input-field"  type="text" formControlName="comentario" name="comentario" style="width: 100%;" #comentario >
+        </div>
+        <button class="mt-3" style="width: 5vw;float:right" (click)="enviarExperiencia()" >Enviar</button>
+      </form>
+</mat-card>

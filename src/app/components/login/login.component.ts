@@ -29,7 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class LoginComponent {
   cargando: boolean = false;
-
+  showUserOptions: boolean = false;
   fb = inject(FormBuilder);
   authService = inject(FirebaseAuthService);
   router = inject(Router);
@@ -73,23 +73,14 @@ export class LoginComponent {
   volver() {
     this.router.navigateByUrl('/bienvenida');
   }
+  toggleUserOptions() {
+    this.showUserOptions = !this.showUserOptions;
+  }
+  userX(email: string, password: string) { 
+    this.form.setValue({
+      email: email,
+      password: password,
+    });
+}
 
-  userA() {
-    this.form.setValue({
-      email: 'saxim86622@aleitar.com',
-      password: 'saxim86622@aleitar.com',
-    });
-  }
-  userB() {
-    this.form.setValue({
-      email: 'kavala3948@acroins.com',
-      password: 'kavala3948@acroins.com',
-    });
-  }
-  userC() {
-    this.form.setValue({
-      email: 'wexav40277@aqqor.com',
-      password: 'wexav40277@aqqor.com',
-    });
-  }
 }

@@ -1,0 +1,105 @@
+<mat-card class="p-3">
+
+    <mat-card-title>
+        <div class="d-flex justify-content-center">
+            <h1 class="ml-3">Turnos</h1>
+        </div>
+    </mat-card-title>
+
+<form [formGroup]="form">
+<div class="mat-elevation-z8">
+    <section class="col-12">
+        <button type="button" class="btn btn-secondary ml-2 mb-3 mt-3" (click)="filtrar()" *ngIf="!cargando">Filtrar
+        </button>
+        <button type="button" class="btn btn-secondary ml-2 mb-3 mt-3" (click)="limpiarFiltros()">Limpiar filtros
+        </button>
+    </section>
+    <div class="row">
+        <div class="col-12">
+            <div class="row ml-3">
+                <h2 style="float: left;">Listado de turnos:</h2>
+                <mat-progress-spinner *ngIf="cargando" mode="indeterminate" diameter="30" color="primary" class="ml-3" style="float: left;"></mat-progress-spinner>
+            </div>
+                <div class="mat-elevation-z8">
+                    <table mat-table [dataSource]="lista">
+
+                        <ng-container matColumnDef="fecha">
+                            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+                            <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.fecha | fecha}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="horario">
+                            <th mat-header-cell *matHeaderCellDef> Horario </th>
+                            <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.horario}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="paciente">
+                            <th mat-header-cell *matHeaderCellDef> Paciente </th>
+                            <td mat-cell *matCellDef="let element" style="font-size: 20px;"> 
+                                <span class="mt-2">{{element.paciente}} </span>
+
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="especialista">
+                            <th mat-header-cell *matHeaderCellDef> Especialista </th>
+                            <td mat-cell *matCellDef="let element" style="font-size: 20px;"> 
+                                <span class="mt-2">{{element.especialista | doctor}}</span>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="especialidad">
+                            <th mat-header-cell *matHeaderCellDef> Especialidad </th>
+                            <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.especialidad }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef> Estado </th>
+                            <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.estado}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button type="button" mat-icon-button matTooltip="Cancelar turno" class="boton btn-danger ml-2" (click)="cancelarTurno(element)" 
+                                *ngIf="(usuario.data.perfil === 'Paciente' && element.estado !=='Realizado' && element.estado !=='Cancelado' && element.estado !=='Rechazado' ) || 
+                                        ( usuario.data.perfil === 'Administrador' && element.estado ==='Pendiente') ||   (usuario.data.perfil === 'Especialista' && element.estado ==='Aceptado') 
+                                " style="float: left;">
+                                    <mat-icon class="material-icons">cancel</mat-icon>
+                                </button>
+                                <button type="button" mat-icon-button matTooltip="Ver comentario" class="boton btn-info ml-2" (click)="verComentario(element)" *ngIf="element.estado ==='Cancelado' || element.estado ==='Rechazado' || element.estado ==='Realizado' " style="float: left;">
+                                    <mat-icon class="material-icons">announcement</mat-icon>
+                                </button>
+                                <button type="button" mat-icon-button matTooltip="Completar encuestas" class="boton btn-success ml-2" (click)="completarEncuesta(element)" style="float: left;"  *ngIf="usuario.data.perfil === 'Paciente' && element.estado ==='Realizado' && element.comentario"><!-- -->
+                                    <mat-icon class="material-icons">assignment</mat-icon>
+                                </button>
+
+                                <button type="button" mat-icon-button matTooltip="Calificar atencion" class="boton btn-warning ml-2" (click)="completarExperiencia(element)" style="float: left;"  *ngIf="usuario.data.perfil === 'Paciente' && element.estado ==='Realizado'"><!-- -->
+                                    <mat-icon class="material-icons">assessment</mat-icon>
+                                </button>
+
+                                
+                                <button type="button" mat-icon-button matTooltip="Rechazar turno" class="boton btn-danger ml-2" style="float: left;" (click)="rechazarTurno(element)" *ngIf="usuario.data.perfil === 'Especialista' && element.estado ==='Pendiente'" ><!-- -->
+                                    <mat-icon class="material-icons">cancel_presentation</mat-icon>
+                                </button>
+
+                                <button type="button" mat-icon-button matTooltip="Aceptar turno" class="boton btn-warning ml-2" style="float: left;" (click)="aceptarTurno(element)" *ngIf="usuario.data.perfil === 'Especialista' && element.estado ==='Pendiente'" ><!-- -->
+                                    <mat-icon class="material-icons">check_circle</mat-icon>
+                                </button>
+
+                                
+                                <button type="button" mat-icon-button matTooltip="Finalizar turno" class="boton btn-success ml-2" style="float: left;" (click)="finalizarTurno(element)" *ngIf="usuario.data.perfil === 'Especialista' && element.estado ==='Aceptado'" ><!-- -->
+                                    <mat-icon class="material-icons">check_circle</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="tableDetalle"></tr>
+                        <tr mat-row *matRowDef="let row; columns: tableDetalle;"></tr>
+                    </table>
+
+                    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                        aria-label="Select page of periodic elements">
+                    </mat-paginator>
+                </div>
+        </div>
+    </div>
+</div>
+</form>
+
+</mat-card>

@@ -1,0 +1,31 @@
+.profile-button {
+  width: 130%; /* Ocupa todo el ancho del contenedor */
+  height: 230px; /* Aumentamos la altura del botón */
+  border: none;
+  border-radius: 15px; /* Bordes redondeados */
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+  display: flex; /* Utilizamos flexbox */
+  justify-content: center; /* Centra la imagen horizontalmente */
+  align-items: center; /* Centra la imagen verticalmente */
+  transition: transform 0.3s ease;
+}
+
+.profile-button img {
+  max-width: 100%; /* La imagen no excede el tamaño del contenedor */
+  max-height: 100%; /* La imagen no excede la altura del botón */
+  object-fit: contain; /* Asegura que la imagen se ajusta sin distorsionar */
+}
+
+.boton {
+  background-color: #c9d5dd;
+  display: block;
+  width: 100%;
+}
+
+.boton:hover {
+  background-color: #a5b9c2; /* Cambio de color al pasar el ratón */
+  transform: scale(1.05); /* Efecto de ampliación al pasar el ratón */
+}

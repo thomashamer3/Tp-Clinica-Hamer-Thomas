@@ -1,0 +1,9 @@
+<div class="mat-elevation-z8 profile mt-3 mb-3" *ngIf="usuario?.data?.fotos[0]">
+    <img [src]="usuario.data.fotos[0]" alt="Imagen de perfil 1" height="150px" width="auto" class="mr-3">
+    <img [src]="usuario.data.fotos[1] " alt="Imagen de perfil 2" *ngIf="usuario.data.perfil === 'Paciente'" height="180px" width="auto">
+    <h1>Nombre y Apellido: {{usuario.data.datos.nombre}} {{usuario.data.datos.apellido}}</h1>
+    <p>Correo electrónico: {{usuario.data.datos.mail}}</p>
+    <p>DNI: {{usuario.data.datos.dni}}</p>
+    <p>Edad: {{usuario.data.datos.edad}}</p>
+    <p *ngIf="usuario.data.perfil === 'Paciente'">Obra Social: {{usuario.data.datos.obraSocial}}</p>
+</div>

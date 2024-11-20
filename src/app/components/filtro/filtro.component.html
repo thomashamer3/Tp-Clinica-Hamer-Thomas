@@ -1,0 +1,353 @@
+<mat-card class="m-5">
+  <div style="display: flex; justify-content: center" *ngIf="cargando">
+    <mat-progress-spinner
+      mode="indeterminate"
+      diameter="70"
+      color="primary"
+      class=""
+    ></mat-progress-spinner>
+  </div>
+  <div class="row" *ngIf="!cargando">
+    <div class="col-12">
+      <mat-card-title>
+        <h2>Filtros:</h2>
+      </mat-card-title>
+    </div>
+    <div class="col-12">
+      <button
+        type="button"
+        class="btn btn-secondary ml-2 mb-3 mt-3"
+        style="float: left"
+        (click)="verEspecialidades()"
+      >
+        Especialidades
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary ml-2 mb-3 mt-3"
+        style="float: left"
+        *ngIf="!esEspecialista"
+        (click)="verEspecialistas()"
+      >
+        Especialistas
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary ml-2 mb-3 mt-3"
+        style="float: left"
+        *ngIf="esEspecialista"
+        (click)="verPacientes()"
+      >
+        Pacientes
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary ml-2 mb-3 mt-3"
+        style="float: left"
+        (click)="verFechas()"
+      >
+        Fechas
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary ml-2 mb-3 mt-3"
+        style="float: left"
+        (click)="verHorarios()"
+      >
+        Horarios
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary ml-2 mb-3 mt-3"
+        style="float: left"
+        (click)="verEstados()"
+      >
+        Estados
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary ml-2 mb-3 mt-3"
+        style="float: left"
+        *ngIf="usuario?.data?.perfil !== 'Administrador'"
+        (click)="verHistoriaClinica()"
+      >
+        Historia Clinica
+      </button>
+    </div>
+  </div>
+  <form [formGroup]="form" *ngIf="indice === 0">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 mt-3 ml-3 mb-3">
+        <div class="form-box subject-icon">
+          <input
+            class="input-field mt-2"
+            type="text"
+            formControlName="especialidad"
+            name="especialidad"
+            placeholder="Filtrar por nombre de especialidad"
+            (keyup)="filtrarEspecialidades()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="listaEspecialidades">
+        <ng-container matColumnDef="especialidad">
+          <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+          <td mat-cell *matCellDef="let element" style="font-size: 20px">
+            <span class="mt-2">{{ element.nombre }} </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="check">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <input
+              type="checkbox"
+              class="custom-checkbox"
+              style="margin-left: 30px"
+              (change)="element.estaMarcado = !element.estaMarcado"
+              [checked]="element.estaMarcado"
+            />
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableEspecialidades"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableEspecialidades"></tr>
+      </table>
+    </div>
+  </form>
+  <form [formGroup]="formPaciente" *ngIf="esEspecialista && indice === 1">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 mt-3 ml-3 mb-3">
+        <div class="form-box subject-icon">
+          <input
+            class="input-field mt-2"
+            type="text"
+            formControlName="paciente"
+            name="paciente"
+            placeholder="Filtrar por apellido de paciente"
+            (keyup)="filtrarPacientes()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="listaPacientes">
+        <ng-container matColumnDef="paciente">
+          <th mat-header-cell *matHeaderCellDef>Paciente</th>
+          <td mat-cell *matCellDef="let element" style="font-size: 20px">
+            <span class="mt-2">{{ element.datos.apellido }} </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="check">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <input
+              type="checkbox"
+              class="custom-checkbox"
+              style="margin-left: 30px"
+              (change)="element.estaMarcado = !element.estaMarcado"
+              [checked]="element.estaMarcado"
+            />
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tablePacientes"></tr>
+        <tr mat-row *matRowDef="let row; columns: tablePacientes"></tr>
+      </table>
+    </div>
+  </form>
+  <form [formGroup]="formEspecialista" *ngIf="!esEspecialista && indice === 2">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 mt-3 ml-3 mb-3">
+        <div class="form-box subject-icon">
+          <input
+            class="input-field mt-2"
+            type="text"
+            formControlName="especialista"
+            name="especialista"
+            placeholder="Filtrar por apellido de especialista"
+            (keyup)="filtrarEspecialista()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="listaEspecialistas">
+        <ng-container matColumnDef="especialista">
+          <th mat-header-cell *matHeaderCellDef>Especialista</th>
+          <td mat-cell *matCellDef="let element" style="font-size: 20px">
+            <span class="mt-2">{{ element.datos.apellido }} </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="check">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <input
+              type="checkbox"
+              class="custom-checkbox"
+              style="margin-left: 30px"
+              (change)="element.estaMarcado = !element.estaMarcado"
+              [checked]="element.estaMarcado"
+            />
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableEspecialistas"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableEspecialistas"></tr>
+      </table>
+    </div>
+  </form>
+  <form [formGroup]="formFecha" *ngIf="indice === 3">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 mt-3 ml-3 mb-3">
+        <div class="form-box subject-icon">
+          <input
+            class="input-field mt-2"
+            type="text"
+            formControlName="fecha"
+            name="fecha"
+            placeholder="Filtrar por fecha"
+            (keyup)="filtrarFecha()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="listaFechas">
+        <ng-container matColumnDef="fecha">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let element" style="font-size: 20px">
+            <span class="mt-2">{{ element }} </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="check">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <input
+              type="checkbox"
+              class="custom-checkbox"
+              style="margin-left: 30px"
+              (change)="element.estaMarcado = !element.estaMarcado"
+              [checked]="element.estaMarcado"
+            />
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableFechas"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableFechas"></tr>
+      </table>
+    </div>
+  </form>
+  <form [formGroup]="formHorario" *ngIf="indice === 4">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 mt-3 ml-3 mb-3">
+        <div class="form-box subject-icon">
+          <input
+            class="input-field mt-2"
+            type="text"
+            formControlName="horario"
+            name="horario"
+            placeholder="Filtrar por horario"
+            (keyup)="filtrarHorarios()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="listaHorarios">
+        <ng-container matColumnDef="horario">
+          <th mat-header-cell *matHeaderCellDef>Horario</th>
+          <td mat-cell *matCellDef="let element" style="font-size: 20px">
+            <span class="mt-2">{{ element.horario }} </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="check">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <input
+              type="checkbox"
+              class="custom-checkbox"
+              style="margin-left: 30px"
+              (change)="element.estaMarcado = !element.estaMarcado"
+              [checked]="element.estaMarcado"
+            />
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableHorarios"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableHorarios"></tr>
+      </table>
+    </div>
+  </form>
+  <form [formGroup]="formEstado" *ngIf="indice === 5">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 mt-3 ml-3 mb-3">
+        <div class="form-box subject-icon">
+          <input
+            class="input-field mt-2"
+            type="text"
+            formControlName="estado"
+            name="estado"
+            placeholder="Filtrar por estado"
+            (keyup)="filtrarEstados()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="listaEstados">
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let element" style="font-size: 20px">
+            <span class="mt-2">{{ element.estado }} </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="check">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <input
+              type="checkbox"
+              class="custom-checkbox"
+              style="margin-left: 30px"
+              (change)="element.estaMarcado = !element.estaMarcado"
+              [checked]="element.estaMarcado"
+            />
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableEstados"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableEstados"></tr>
+      </table>
+    </div>
+  </form>
+  <form [formGroup]="formEstado" *ngIf="indice === 6"></form>
+  <div class="row">
+    <div class="col-6">
+      <button
+        type="button"
+        class="btn btn-secondary ml-2 mb-3 mt-3"
+        style="float: left"
+        (click)="filtrar()"
+      >
+        Filtrar
+      </button>
+    </div>
+    <div class="col-6">
+      <button
+        type="button"
+        class="btn btn-secondary mr-2 mb-3 mt-3"
+        style="float: right"
+        (click)="cerrar()"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+</mat-card>
