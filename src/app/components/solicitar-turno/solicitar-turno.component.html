@@ -27,7 +27,7 @@
                     <div class="card-body" *ngIf="horario.mostrar" style="max-height: 200px; overflow-y: auto;">
                         <ng-container >
                             <div *ngFor="let hora of horario.horas"   >
-                                <div class="hora"  ><!--*ngIf="verificarDisponibilidadHorario(horario.dia,hora)"-->
+                                <div class="hora"  >
                                     <button class="btn btn-secondary" (click)="cargarTurno(horario.fecha,horario.dia,hora)">{{ hora.horario }}</button>
                                 </div>
                             </div>
