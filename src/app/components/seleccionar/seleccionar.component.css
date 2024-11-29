@@ -40,14 +40,13 @@ button {
 }
 
 .especialista-img {
-  width: 100%; 
-  height: 150px; 
-  object-fit: cover; 
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
   border-top: 2px solid #ccc;
   margin-top: 8px;
-  border-radius: 5px; 
+  border-radius: 5px;
 }
-
 
 .especialidad-img {
   width: 100%;

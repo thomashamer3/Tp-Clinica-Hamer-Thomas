@@ -1,44 +1,71 @@
 <mat-card class="p-3">
-
   <mat-card-title>
-      <div class="d-flex justify-content-center">
-          <h1 class="ml-3">Solicitar turno</h1>
-      </div>
+    <div class="d-flex justify-content-center">
+      <h1 class="ml-3">Solicitar turno</h1>
+    </div>
   </mat-card-title>
 
-<form [formGroup]="form">
-<div class="mat-elevation-z8 profile">
-  <section class="col-12">
-      <button class="btn btn-secondary mt-3 mb-3" (click)="mostrarGrilla()">Solicitar turno</button>   
-  </section>
-  <div class="row">
-      <div class="col-12">
+  <form [formGroup]="form">
+    <div class="mat-elevation-z8 profile">
+      <section class="col-12">
+        <button class="btn btn-secondary mt-3 mb-3" (click)="mostrarGrilla()">
+          Solicitar turno
+        </button>
+      </section>
+
+      <div class="row">
+        <div class="col-12">
           <div class="row ml-3">
-              <h2 style="float: left;">Dias y horarios disponibles:</h2>
-              <mat-progress-spinner *ngIf="cargando" mode="indeterminate" diameter="30" color="primary" class="ml-3" style="float: left;"></mat-progress-spinner>
+            <h2 style="float: left">Dias y horarios disponibles:</h2>
+            <mat-progress-spinner
+              *ngIf="cargando"
+              mode="indeterminate"
+              diameter="30"
+              color="primary"
+              class="ml-3"
+              style="float: left"
+            ></mat-progress-spinner>
           </div>
           <div class="card-container" *ngIf="horarios">
-              <div class="scroll-container">
-                  <div  [ngClass]="{'card': horario.mostrar,'m-3': !horario.mostrar}" *ngFor="let horario of horarios[0]?.data?.horariosCalculados">
-                    <div class="card-header">{{ horario.dia }}</div>
-                    <div class="card-header">
-                        <button class="btn btn-secondary rounded-0" (click)="habilitarHoras(horario)">{{ horario.fecha | fecha }}</button>
-                    </div>
-                    <div class="card-body" *ngIf="horario.mostrar" style="max-height: 200px; overflow-y: auto;">
-                        <ng-container >
-                            <div *ngFor="let hora of horario.horas"   >
-                                <div class="hora"  >
-                                    <button class="btn btn-secondary" (click)="cargarTurno(horario.fecha,horario.dia,hora)">{{ hora.horario }}</button>
-                                </div>
-                            </div>
-                        </ng-container>
-                    </div>
-                  </div>
+            <div class="scroll-container">
+              <div
+                [ngClass]="{ card: horario.mostrar, 'm-3': !horario.mostrar }"
+                *ngFor="let horario of horarios[0]?.data?.horariosCalculados"
+              >
+                <div class="card-header">{{ horario.dia }}</div>
+                <div class="card-header">
+                  <button
+                    class="btn btn-secondary rounded-0"
+                    (click)="habilitarHoras(horario)"
+                  >
+                    {{ horario.fecha | fecha }}
+                  </button>
                 </div>
-          </div>  
+                <div
+                  class="card-body"
+                  *ngIf="horario.mostrar"
+                  style="max-height: 200px; overflow-y: auto"
+                >
+                  <ng-container>
+                    <div *ngFor="let hora of horario.horas">
+                      <div class="hora">
+                        <button
+                          class="btn btn-secondary"
+                          (click)="
+                            cargarTurno(horario.fecha, horario.dia, hora)
+                          "
+                        >
+                          {{ hora.horario }}
+                        </button>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-  </div>
-</div>
-</form>
-
+    </div>
+  </form>
 </mat-card>

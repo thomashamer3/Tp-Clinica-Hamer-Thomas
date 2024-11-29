@@ -1,7 +1,12 @@
 <div>
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container-fluid">
-      <a class="navbar-brand" href="bienvenida" (click)="salir()">
+      <a
+        appOpcionMenuSeleccion
+        class="navbar-brand"
+        href="bienvenida"
+        (click)="salir()"
+      >
         <mat-icon
           aria-hidden="false"
           aria-label="Example home icon"
@@ -11,12 +16,20 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li *ngIf="perfilActual === 'Administrador'" class="nav-item">
-            <button class="nav-link btn" (click)="verSeccionUsuario()">
+            <button
+              appOpcionMenuSeleccion
+              class="nav-link btn"
+              (click)="verSeccionUsuario()"
+            >
               <span>Usuarios</span>
             </button>
           </li>
           <li class="nav-item">
-            <button class="nav-link btn" (click)="verMiPerfil()">
+            <button
+              appOpcionMenuSeleccion
+              class="nav-link btn"
+              (click)="verMiPerfil()"
+            >
               <span>Mi perfil</span>
             </button>
           </li>
@@ -26,12 +39,20 @@
             "
             class="nav-item"
           >
-            <button class="nav-link btn" (click)="verSolicitarTurno()">
+            <button
+              appOpcionMenuSeleccion
+              class="nav-link btn"
+              (click)="verSolicitarTurno()"
+            >
               <span>Solicitar turno</span>
             </button>
           </li>
           <li *ngIf="perfilActual === 'Especialista'" class="nav-item">
-            <button class="nav-link btn" (click)="verPacientes()">
+            <button
+              appOpcionMenuSeleccion
+              class="nav-link btn"
+              (click)="verPacientes()"
+            >
               <span>Pacientes</span>
             </button>
           </li>
@@ -43,9 +64,18 @@
             "
             class="nav-item"
           >
-            <button class="nav-link btn" (click)="verTurnos()">
+            <button
+              appOpcionMenuSeleccion
+              class="nav-link btn"
+              (click)="verTurnos()"
+            >
               <span *ngIf="perfilActual === 'Administrador'">Turnos</span>
               <span *ngIf="perfilActual !== 'Administrador'">Mis Turnos</span>
+            </button>
+          </li>
+          <li *ngIf="perfilActual === 'Administrador'" class="nav-item">
+            <button appMenu class="nav-link btn" (click)="verGraficos()">
+              <span>Estadisticas</span>
             </button>
           </li>
         </ul>
@@ -57,23 +87,26 @@
     <div class="container pt-4">
       <div
         *ngIf="pestania === 0 && perfilActual === 'Administrador'"
-        [@slideInLeft]
+        [@slideInRight]
       >
         <app-seccion-usuarios></app-seccion-usuarios>
       </div>
-      <div *ngIf="pestania === 1" [@slideInLeft]>
+      <div *ngIf="pestania === 1" [@slideInRight]>
         <app-mi-perfil></app-mi-perfil>
       </div>
-      <div *ngIf="pestania === 2" [@slideInLeft]>
+      <div *ngIf="pestania === 2" [@slideInRight]>
         <app-solicitar-turno
           (turnoCargado)="verTurnos($event)"
         ></app-solicitar-turno>
       </div>
-      <div *ngIf="pestania === 3" [@slideInLeft]>
+      <div *ngIf="pestania === 3" [@slideInRight]>
         <app-turnos></app-turnos>
       </div>
-      <div *ngIf="pestania === 4" [@slideInLeft]>
+      <div *ngIf="pestania === 4" [@slideInRight]>
         <app-historia-clinica-form></app-historia-clinica-form>
+      </div>
+      <div *ngIf="pestania === 5" [@slideInRight]>
+        <app-graficos></app-graficos>
       </div>
     </div>
   </main>

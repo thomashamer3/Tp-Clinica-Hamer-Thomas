@@ -6,14 +6,12 @@ registerLocaleData(localeEs, 'es');
 
 @Pipe({
   name: 'fecha',
-  standalone: true
+  standalone: true,
 })
 export class FechasPipe implements PipeTransform {
-
   transform(value: string, ...args: unknown[]): string {
     const fecha = new Date(value);
 
-    return formatDate(fecha, 'yyyy-MM-dd', 'es');
+    return formatDate(fecha, "dd 'de' MMMM", 'es');
   }
-
 }

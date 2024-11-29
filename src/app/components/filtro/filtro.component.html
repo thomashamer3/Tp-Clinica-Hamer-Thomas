@@ -222,7 +222,7 @@
         <ng-container matColumnDef="fecha">
           <th mat-header-cell *matHeaderCellDef>Fecha</th>
           <td mat-cell *matCellDef="let element" style="font-size: 20px">
-            <span class="mt-2">{{ element }} </span>
+            <span class="mt-2">{{ element | fecha }} </span>
           </td>
         </ng-container>
         <ng-container matColumnDef="check">
@@ -327,7 +327,12 @@
       </table>
     </div>
   </form>
-  <form [formGroup]="formEstado" *ngIf="indice === 6"></form>
+  <form [formGroup]="formEstado" *ngIf="indice === 6">
+    <app-historia-clinica
+      #historiaClinica
+      [esFiltro]="true"
+    ></app-historia-clinica>
+  </form>
   <div class="row">
     <div class="col-6">
       <button

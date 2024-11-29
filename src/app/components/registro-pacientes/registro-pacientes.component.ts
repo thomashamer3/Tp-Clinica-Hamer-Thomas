@@ -7,8 +7,6 @@ import { FormPacienteComponent } from '../../components/form-paciente/form-pacie
   standalone: true,
   imports: [MatCardModule, FormPacienteComponent],
   templateUrl: './registro-pacientes.component.html',
-  styleUrl: './registro-pacientes.component.css'
+  styleUrl: './registro-pacientes.component.css',
 })
-export class RegistroPacientesComponent {
-
-}
+export class RegistroPacientesComponent {}

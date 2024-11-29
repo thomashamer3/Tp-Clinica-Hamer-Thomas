@@ -1,19 +1,17 @@
-
-.input-field, span{
-  font-size: 20px; 
+.input-field,
+span {
+  font-size: 20px;
 }
-
 
 .error-message {
   color: red;
 }
 
-
 .form-box {
-  margin-bottom: 20px; 
+  margin-bottom: 20px;
 }
 
-.boton{
+.boton {
   width: 40px;
   height: 40px;
   border-radius: 50%;

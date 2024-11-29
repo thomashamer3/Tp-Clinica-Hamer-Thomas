@@ -42,8 +42,8 @@ export class RegistroAdministradoresComponent {
       apellido: ['', [Validators.required]],
       edad: ['', [Validators.required]],
       dni: ['', [Validators.required]],
-      mail: ['', [Validators.required]], 
-      clave: ['', [Validators.required, Validators.minLength(6)]], 
+      mail: ['', [Validators.required]],
+      clave: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -82,5 +82,4 @@ export class RegistroAdministradoresComponent {
       this.dialogRef.close();
     }
   }
-
 }

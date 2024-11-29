@@ -1,0 +1,134 @@
+<mat-card class="mb-3 pb-3">
+  <div class="col-lg-12 mt-3">
+    <div class="submit-info" style="float: left">
+      <button class="btn btn-success" (click)="htmltoPDF()">
+        Exportar<i class="ti-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</mat-card>
+
+<mat-card>
+  <div #card>
+    <div class="row justify-content-center mb-3">
+      <div class="col-lg-5 ml-3">
+        <div class="section-tittle section-tittle2 mt-3">
+          <span>Log de ingresos al sistema:</span>
+        </div>
+        <div style="display: block">
+          <canvas #scatterChart></canvas>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-3">
+        <div class="col-lg-5 ml-3">
+          <div class="section-tittle section-tittle2 mt-3">
+            <span>Cantidad de turnos por especialidad:</span>
+          </div>
+          <div style="display: block">
+            <canvas #pieChart></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5 ml-3">
+        <div class="section-tittle section-tittle2 mt-3">
+          <span>Cantidad de turnos por dia:</span>
+        </div>
+        <div style="display: block">
+          <canvas #barChart></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center mb-3">
+      <div class="col-lg-5 ml-3">
+        <div class="section-tittle section-tittle2 mt-3">
+          <span
+            >Cantidad de turnos solicitado por medico en un lapso de
+            tiempo:</span
+          >
+        </div>
+        <div class="mb-3">
+          <form [formGroup]="form">
+            <div class="row">
+              <div class="col-6">
+                <label for="fechaInicio" style="float: right"
+                  >Fecha de Inicio:</label
+                >
+              </div>
+              <div class="col-6">
+                <input
+                  type="date"
+                  formControlName="fechaInicio"
+                  name="fechaInicio"
+                  (change)="recalcular()"
+                  style="float: left"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <label for="fechaFin" style="float: right">Fecha de Fin:</label>
+              </div>
+              <div class="col-6">
+                <input
+                  type="date"
+                  formControlName="fechaFin"
+                  name="fechaFin"
+                  (change)="recalcular()"
+                  style="float: left"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div style="display: block">
+          <canvas #lineChart></canvas>
+        </div>
+      </div>
+      <div class="col-lg-5 ml-3">
+        <div class="section-tittle section-tittle2 mt-3">
+          <span
+            >Cantidad de turnos finalizados por medico en un lapso de
+            tiempo:</span
+          >
+        </div>
+        <div class="mb-3">
+          <form [formGroup]="form2">
+            <div class="row">
+              <div class="col-6">
+                <label for="fechaInicio" style="float: right"
+                  >Fecha de Inicio:</label
+                >
+              </div>
+              <div class="col-6">
+                <input
+                  type="date"
+                  formControlName="fechaInicio"
+                  name="fechaInicio"
+                  (change)="recalcular2()"
+                  style="float: left"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <label for="fechaFin" style="float: right">Fecha de Fin:</label>
+              </div>
+              <div class="col-6">
+                <input
+                  type="date"
+                  formControlName="fechaFin"
+                  name="fechaFin"
+                  (change)="recalcular2()"
+                  style="float: left"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div style="display: block">
+          <canvas #lineChart2></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

@@ -76,11 +76,10 @@ export class LoginComponent {
   toggleUserOptions() {
     this.showUserOptions = !this.showUserOptions;
   }
-  userX(email: string, password: string) { 
+  userX(email: string, password: string) {
     this.form.setValue({
       email: email,
       password: password,
     });
-}
-
+  }
 }

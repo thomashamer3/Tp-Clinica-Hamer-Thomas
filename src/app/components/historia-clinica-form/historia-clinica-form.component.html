@@ -1,214 +1,361 @@
-<div *ngIf="usuario?.data?.perfil === 'Especialista' || usuario?.data?.perfil === 'Administrador'">
-    <mat-card class="p-3">
-        <mat-card-title>
-            <div class="d-flex justify-content-center"> 
-            <h1>Historia Clínica</h1>
-            </div>
-        </mat-card-title>
-        <div >
-            <div class="section-tittle section-tittle2 mt-3">
-                <span>Pacientes:</span>
-            </div>
-            <div class="especialidades-grid ml-1 mb-1 mt-1" >
-                <div *ngFor="let paciente of pacientes" class="especialidad-item">
-                     
-                    <button matTooltip={{paciente.datos.apellido}} class="profile-button" style="margin: 0%;" (click)="verTurnos(paciente)">
-                       <img [src]="paciente.fotos[0]" alt="{{paciente.datos.apellido}}">
-                    </button>
-                    
-                </div>
-            </div>
+<div
+  *ngIf="
+    usuario?.data?.perfil === 'Especialista' ||
+    usuario?.data?.perfil === 'Administrador'
+  "
+>
+  <mat-card class="p-3">
+    <mat-card-title>
+      <div class="d-flex justify-content-center">
+        <h1>Historia Clínica</h1>
+      </div>
+    </mat-card-title>
+    <div>
+      <div class="section-tittle section-tittle2 mt-3">
+        <span>Pacientes:</span>
+      </div>
+      <div class="especialidades-grid ml-1 mb-1 mt-1">
+        <div *ngFor="let paciente of pacientes" class="especialidad-item">
+          <button
+            matTooltip="{{ paciente.datos.apellido }}"
+            class="profile-button"
+            style="margin: 0%"
+            (click)="verTurnos(paciente)"
+          >
+            <img
+              [src]="paciente.fotos[0]"
+              alt="{{ paciente.datos.apellido }}"
+            />
+          </button>
         </div>
-    
-    </mat-card>
-    
-    <mat-card class="mt-3">
-        <form >
-            <div class="mat-elevation-z8">
-                <div class="row">
-                    <div class="col-12">
-                            <div class="mat-elevation-z8">
-                                <table mat-table [dataSource]="lista">
-    
-                                    <ng-container matColumnDef="fecha">
-                                        <th mat-header-cell *matHeaderCellDef> Fecha </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.fecha | fecha}} </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="horario">
-                                        <th mat-header-cell *matHeaderCellDef> Horario </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.horario}} </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="paciente">
-                                        <th mat-header-cell *matHeaderCellDef> Paciente </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> 
-                                            <span class="mt-2">{{element.paciente}} </span>
-                                        </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="especialista">
-                                        <th mat-header-cell *matHeaderCellDef> Especialista </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> 
-                                            <span class="mt-2">{{element.especialista | doctor}}</span>
-                                        </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="especialidad">
-                                        <th mat-header-cell *matHeaderCellDef> Especialidad </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.especialidad }} </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="estado">
-                                        <th mat-header-cell *matHeaderCellDef> Estado </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.estado}} </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="acciones">
-                                        <th mat-header-cell *matHeaderCellDef> Ver Comentario/Ver Historia Clinica</th>
-                                        <td mat-cell *matCellDef="let element">
-                                            <button type="button" mat-icon-button matTooltip="Ver comentario" class="boton btn-info ml-2" (click)="verComentario(element)" style="float: left;">
-                                                <mat-icon class="material-icons">announcement</mat-icon>
-                                            </button>
-                                            <button type="button" mat-icon-button matTooltip="Ver historia clinica" class="boton btn-primary ml-2" (click)="verHistoria(element)" style="float: left;">
-                                                <mat-icon class="material-icons">assignment_ind</mat-icon>
-                                            </button>
-                                        </td>
-                                    </ng-container>
-    
-    
-                                    <tr mat-header-row *matHeaderRowDef="tableDetalle"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: tableDetalle;"></tr>
-                                </table>
-    
-                                <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                                    aria-label="Select page of periodic elements">
-                                </mat-paginator>
+      </div>
+    </div>
+  </mat-card>
 
-                            </div>
-                            <div class="mat-elevation-z8" #tablaUno style="display: none;">
-                                <table mat-table [dataSource]="lista">
-    
-                                    <ng-container matColumnDef="fecha">
-                                        <th mat-header-cell *matHeaderCellDef> Fecha </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.fecha | fecha}} </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="horario">
-                                        <th mat-header-cell *matHeaderCellDef> Horario </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.horario}} </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="paciente">
-                                        <th mat-header-cell *matHeaderCellDef> Paciente </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> 
-                                            <span class="mt-2">{{element.paciente}} </span>
-                                        </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="especialista">
-                                        <th mat-header-cell *matHeaderCellDef> Especialista </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> 
-                                            <span class="mt-2">{{element.especialista | doctor}}</span>
-                                        </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="especialidad">
-                                        <th mat-header-cell *matHeaderCellDef> Especialidad </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.especialidad }} </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="estado">
-                                        <th mat-header-cell *matHeaderCellDef> Estado </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.estado}} </td>
-                                    </ng-container>
-    
-                                    <tr mat-header-row *matHeaderRowDef="tablaExcel"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: tablaExcel;"></tr>
-                                </table>
-    
-                            </div>
-                    </div>
-                    
-                    <div class="col-lg-12 col-md-12 m-3" *ngIf="usuario?.data?.perfil === 'Administrador'">
-                        <div class="form-box subject-icon">
-                            <button class="btn btn-success" (click)="exportarExcel()">Exportal Excel</button>
-                        </div>
-                    </div>
-                    
-                </div>
+  <mat-card class="mt-3">
+    <form>
+      <div class="mat-elevation-z8">
+        <div class="row">
+          <div class="col-12">
+            <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="lista">
+                <ng-container matColumnDef="fecha">
+                  <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    {{ element.fecha | fecha }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="horario">
+                  <th mat-header-cell *matHeaderCellDef>Horario</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    {{ element.horario }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="paciente">
+                  <th mat-header-cell *matHeaderCellDef>Paciente</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    <span class="mt-2">{{ element.paciente }} </span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="especialista">
+                  <th mat-header-cell *matHeaderCellDef>Especialista</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    <span class="mt-2">{{
+                      element.especialista | doctor
+                    }}</span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="especialidad">
+                  <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    {{ element.especialidad }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                  <th mat-header-cell *matHeaderCellDef>Estado</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    {{ element.estado }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                  <th mat-header-cell *matHeaderCellDef>
+                    Ver Comentario/Ver Historia Clinica
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button
+                      type="button"
+                      mat-icon-button
+                      matTooltip="Ver comentario"
+                      class="boton btn-info ml-2"
+                      (click)="verComentario(element)"
+                      style="float: left"
+                    >
+                      <mat-icon class="material-icons">announcement</mat-icon>
+                    </button>
+                    <button
+                      type="button"
+                      mat-icon-button
+                      matTooltip="Ver historia clinica"
+                      class="boton btn-primary ml-2"
+                      (click)="verHistoria(element)"
+                      style="float: left"
+                    >
+                      <mat-icon class="material-icons">assignment_ind</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="tableDetalle"></tr>
+                <tr mat-row *matRowDef="let row; columns: tableDetalle"></tr>
+              </table>
+
+              <mat-paginator
+                #paginator
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+                aria-label="Select page of periodic elements"
+              >
+              </mat-paginator>
             </div>
-        </form>
-    </mat-card>
+            <div class="mat-elevation-z8" #tablaUno style="display: none">
+              <table mat-table [dataSource]="lista">
+                <ng-container matColumnDef="fecha">
+                  <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    {{ element.fecha | fecha }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="horario">
+                  <th mat-header-cell *matHeaderCellDef>Horario</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    {{ element.horario }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="paciente">
+                  <th mat-header-cell *matHeaderCellDef>Paciente</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    <span class="mt-2">{{ element.paciente }} </span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="especialista">
+                  <th mat-header-cell *matHeaderCellDef>Especialista</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    <span class="mt-2">{{
+                      element.especialista | doctor
+                    }}</span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="especialidad">
+                  <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    {{ element.especialidad }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                  <th mat-header-cell *matHeaderCellDef>Estado</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    {{ element.estado }}
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="tablaExcel"></tr>
+                <tr mat-row *matRowDef="let row; columns: tablaExcel"></tr>
+              </table>
+            </div>
+          </div>
+
+          <div
+            class="col-lg-12 col-md-12 m-3"
+            *ngIf="usuario?.data?.perfil === 'Administrador'"
+          >
+            <div class="form-box subject-icon">
+              <button class="btn btn-success" (click)="exportarExcel()">
+                Exportal Excel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card>
 </div>
 
 <div *ngIf="usuario?.data?.perfil === 'Paciente'">
-    <mat-card class="p-3 mt-3">
-        
-                <mat-card-title>
-                    <div class="d-flex justify-content-center"> 
-                        <h1>Historia Clínica</h1>
-                    </div>
-                    <form [formGroup]="form">
-                        <section class="potage-section">
-            
-                            <mat-form-field class="potage-field ml-3" >
-                                <mat-label>Especialista:</mat-label>
-                                <mat-select formControlName="especialista" name="especialista" [compareWith]="selectEspecialista" (selectionChange)="actualizarTabla()">
-                
-                                    <mat-option *ngFor="let reg of especialistasFiltrados" [value]="reg">{{reg.datos.apellido | doctor}}
-                                    </mat-option>
-                                </mat-select>
-                
-                            </mat-form-field>
-                        </section>
-                    </form>
-                    
-                    <button class="btn btn-secondary ml-3 mb-3" (click)="guardarHistoriaClinica()" style="float: left;">Descargar Historia Clinica</button>
-                            <mat-progress-spinner *ngIf="cargando" mode="indeterminate" diameter="30" color="primary" class="mt-3 ml-3" style="float: left;"></mat-progress-spinner>
-                    
-                </mat-card-title>
-          
-    </mat-card>
-    
-    <mat-card class="mb-5">
-        <form >
+  <mat-card class="p-3 mt-3">
+    <mat-card-title>
+      <div class="d-flex justify-content-center">
+        <h1>Historia Clínica</h1>
+      </div>
+      <form [formGroup]="form">
+        <section class="potage-section">
+          <mat-form-field class="potage-field ml-3">
+            <mat-label>Especialista:</mat-label>
+            <mat-select
+              formControlName="especialista"
+              name="especialista"
+              [compareWith]="selectEspecialista"
+              (selectionChange)="actualizarTabla()"
+            >
+              <mat-option
+                *ngFor="let reg of especialistasFiltrados"
+                [value]="reg"
+                >{{ reg.datos.apellido | doctor }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </section>
+      </form>
+
+      <button
+        class="btn btn-secondary ml-3 mb-3"
+        (click)="guardarHistoriaClinica()"
+        style="float: left"
+      >
+        Descargar Historia Clinica
+      </button>
+      <mat-progress-spinner
+        *ngIf="cargando"
+        mode="indeterminate"
+        diameter="30"
+        color="primary"
+        class="mt-3 ml-3"
+        style="float: left"
+      ></mat-progress-spinner>
+    </mat-card-title>
+  </mat-card>
+
+  <mat-card class="mb-5">
+    <form>
+      <div class="mat-elevation-z8">
+        <div class="row">
+          <div class="col-12">
             <div class="mat-elevation-z8">
-                <div class="row">
-                    <div class="col-12">
-                            <div class="mat-elevation-z8">
-                                <table mat-table [dataSource]="lista">
-    
-                                    <ng-container matColumnDef="fecha">
-                                        <th mat-header-cell *matHeaderCellDef> Fecha </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.fecha.toDate() | fecha }} </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="paciente">
-                                        <th mat-header-cell *matHeaderCellDef> Paciente </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> 
-                                            <span class="mt-2">{{element.data.paciente.datos.apellido}} </span>
-                                        </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="especialista">
-                                        <th mat-header-cell *matHeaderCellDef> Especialista </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> 
-                                            <span class="mt-2">{{element.data.especialista.datos.apellido | doctor}}</span>
-                                        </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="especialidad">
-                                        <th mat-header-cell *matHeaderCellDef> Especialidad </th>
-                                        <td mat-cell *matCellDef="let element" style="font-size: 20px;"> {{element.data.especialidad }} </td>
-                                    </ng-container>
-                                    <ng-container matColumnDef="acciones">
-                                        <th mat-header-cell *matHeaderCellDef> Ver Historia Clinica </th>
-                                        <td mat-cell *matCellDef="let element">
-                                            <button type="button" mat-icon-button matTooltip="Ver" class="boton btn-primary ml-2" style="float: left;" (click)="verHistoria(element)" >
-                                                <mat-icon class="material-icons">assignment_ind</mat-icon>
-                                            </button>
-                                        </td>
-                                    </ng-container>
-    
-    
-                                    <tr mat-header-row *matHeaderRowDef="tableDetalle"></tr>
-                                    <tr mat-row *matRowDef="let row; columns: tableDetalle;"></tr>
-                                </table>
-    
-                                <mat-paginator #paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
-                                    aria-label="Select page of periodic elements">
-                                </mat-paginator>
-                            </div>
-                    </div>
-                </div>
+              <table mat-table [dataSource]="lista">
+                <ng-container matColumnDef="fecha">
+                  <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    {{ element.data.fecha.toDate() | fecha }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="paciente">
+                  <th mat-header-cell *matHeaderCellDef>Paciente</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    <span class="mt-2"
+                      >{{ element.data.paciente.datos.apellido }}
+                    </span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="especialista">
+                  <th mat-header-cell *matHeaderCellDef>Especialista</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    <span class="mt-2">{{
+                      element.data.especialista.datos.apellido | doctor
+                    }}</span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="especialidad">
+                  <th mat-header-cell *matHeaderCellDef>Especialidad</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    style="font-size: 20px"
+                  >
+                    {{ element.data.especialidad }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="acciones">
+                  <th mat-header-cell *matHeaderCellDef>
+                    Ver Historia Clinica
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button
+                      type="button"
+                      mat-icon-button
+                      matTooltip="Ver"
+                      class="boton btn-primary ml-2"
+                      style="float: left"
+                      (click)="verHistoria(element)"
+                    >
+                      <mat-icon class="material-icons">assignment_ind</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="tableDetalle"></tr>
+                <tr mat-row *matRowDef="let row; columns: tableDetalle"></tr>
+              </table>
+
+              <mat-paginator
+                #paginator
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+                aria-label="Select page of periodic elements"
+              >
+              </mat-paginator>
             </div>
-        </form>
-    </mat-card>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card>
 </div>

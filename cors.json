@@ -1,9 +1,9 @@
 [
   {
     "origin": [
-      "https://tpclinicalabhamer.web.app",
-      "https://tpclinicalabhamer.firebaseapp.com/",
-      "http://localhost:4200"
+      "https://tpclinicalabhamer.firebaseapp.com",
+      "http://localhost:4200",
+      "https://tpclinicalabhamer.web.app"
     ],
     "method": ["GET"],
     "maxAgeSeconds": 3600

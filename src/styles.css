@@ -1,11 +1,12 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    background-color: #1d3742 !important;
-    font-family: 'system-ui' !important; 
-    background-image: url('../public/fondoBienvenida.png');
-    background-size: cover; 
-    background-position: center;   
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #1d3742 !important;
+  font-family: "system-ui" !important;
+  background-image: url("../public/fondoBienvenida.png");
+  background-size: cover;
+  background-position: center;
 }

@@ -6,17 +6,27 @@ import Swal from 'sweetalert2';
 import { MatCard } from '@angular/material/card';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgFor, NgIf } from '@angular/common';
+import { DoctorPipe } from '../../pipes/doctor.pipe';
+import { BordeDirective } from '../../directivas/borde.directive';
 
 @Component({
   selector: 'app-seleccionar',
   standalone: true,
-  imports: [MatCard, MatProgressSpinner, NgIf, NgFor],
+  imports: [
+    MatCard,
+    MatProgressSpinner,
+    NgIf,
+    NgFor,
+    DoctorPipe,
+    BordeDirective,
+  ],
   templateUrl: './seleccionar.component.html',
   styleUrl: './seleccionar.component.css',
 })
 export class SeleccionarComponent {
   especialidades: any;
   especialistas: any;
+  especialistasFiltrados: any;
   pacientes: any;
   especialidadesFiltradas: any;
   especialidadSeleccionada: any;
@@ -34,6 +44,7 @@ export class SeleccionarComponent {
 
   async ngOnInit() {
     this.cargando = true;
+    // Obtener datos de Firestore
     this.especialidades = await this.firestore.obtener('especialidades');
     let usuarios = await this.firestore.obtener('usuarios');
     this.especialistas = usuarios.filter(
@@ -46,29 +57,34 @@ export class SeleccionarComponent {
     this.cargando = false;
   }
 
-  seleccionarEspecialista(especialista: any) {
-    this.especialistaSeleccionado = especialista;
-    this.especialidadesFiltradas = this.especialidades.filter((element: any) =>
-      especialista.data.datos.especialidades.includes(element.data.nombre)
-    );
-
-    if (this.especialidadesFiltradas.length === 0) {
-      Swal.fire('', 'Este Doctor no tiene especialidades', 'info');
-      this.dialogRef.close({});
-    } else {
-      this.indice = 1;
-    }
-  }
-
   seleccionarEspecialidad(especialidad: any) {
     this.especialidadSeleccionada = especialidad;
 
+    // Filtrar especialistas según la especialidad seleccionada
+    this.especialistasFiltrados = this.especialistas.filter(
+      (especialista: any) =>
+        especialista.data.datos.especialidades.includes(
+          especialidad.data.nombre
+        )
+    );
+
+    if (this.especialistasFiltrados.length === 0) {
+      Swal.fire('', 'No hay especialistas para esta especialidad', 'info');
+      this.dialogRef.close({});
+    } else {
+      this.indice = 1; // Cambiar a la vista de especialistas
+    }
+  }
+
+  seleccionarEspecialista(especialista: any) {
+    this.especialistaSeleccionado = especialista;
+
     if (this.usuario.data.perfil === 'Administrador') {
-      this.indice = 2;
+      this.indice = 2; // Cambiar a la vista de pacientes
     } else {
       this.dialogRef.close({
-        especialista: this.especialistaSeleccionado,
-        especialidad: especialidad,
+        especialista: especialista,
+        especialidad: this.especialidadSeleccionada,
       });
     }
   }

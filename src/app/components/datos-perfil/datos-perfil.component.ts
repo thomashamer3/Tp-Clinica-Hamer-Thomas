@@ -1,11 +1,12 @@
 import { NgIf } from '@angular/common';
 import { Component, Inject, Input, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DniPipe } from '../../pipes/dni.pipe';
 
 @Component({
   selector: 'app-datos-perfil',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, DniPipe],
   templateUrl: './datos-perfil.component.html',
   styleUrl: './datos-perfil.component.css',
 })

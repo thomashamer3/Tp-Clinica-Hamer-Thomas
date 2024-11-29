@@ -5,8 +5,6 @@ import { FormEspecialistaComponent } from '../../components/form-especialista/fo
   standalone: true,
   imports: [FormEspecialistaComponent],
   templateUrl: './registro-especialistas.component.html',
-  styleUrl: './registro-especialistas.component.css'
+  styleUrl: './registro-especialistas.component.css',
 })
-export class RegistroEspecialistasComponent {
-
-}
+export class RegistroEspecialistasComponent {}

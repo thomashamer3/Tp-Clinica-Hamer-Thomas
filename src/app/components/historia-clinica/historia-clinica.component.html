@@ -1,94 +1,244 @@
-<div class="form-wrapper" style="margin: 5%;width: 600px;" >
+<div class="form-wrapper" style="margin: 5%; width: 600px">
   <div class="section-tittle section-tittle2 mb-35">
-      <span class="mb-1">Historia clinica</span>
+    <span class="mb-1">Historia clinica</span>
   </div>
   <form id="contact-form" [formGroup]="form">
-      <div class="row">
-          <div class="col-lg-6 col-md-6">
-              <div class="form-box subject-icon mb-30">
-                  <label for="">Altura [cm]</label>
-                  <input class="input-field" type="number" formControlName="altura" name="altura" placeholder="Altura" [readonly]="data.consulta">
-                  <span *ngIf="form.controls['altura'].errors?.['required'] && form.controls['altura'].touched"  style="color: red;"> Altura es requerida</span>
-                  <span *ngIf="(form.controls['altura'].errors?.['min'] || form.controls['altura'].errors?.['max']) && form.controls['altura'].touched"  style="color: red;"> Altura entre 100 y 250 cm</span>
-              </div>
-          </div>
-          <div class="col-lg-6 col-md-6">
-              <div class="form-box subject-icon mb-30">
-                  <label for="">Peso [kg]</label>
-                  <input class="input-field" type="number" formControlName="peso" name="peso" placeholder="Peso" [readonly]="data.consulta">
-                  <span *ngIf="form.controls['peso'].errors?.['required'] && form.controls['peso'].touched"  style="color: red;"> Peso es requerido</span>
-                  <span *ngIf="(form.controls['peso'].errors?.['min'] || form.controls['peso'].errors?.['max']) && form.controls['peso'].touched"  style="color: red;"> Peso entre 50 y 200 kg</span>
-              </div>
-          </div>
-          <div class="col-lg-6 col-md-6">
-              <div class="form-box user-icon mb-30">
-                  <label for="">Temperatura [°C]</label>
-                  <input class="input-field" type="number" formControlName="temperatura" name="temperatura" placeholder="Temperatura" [readonly]="data.consulta" >
-                  <span *ngIf="form.controls['temperatura'].errors?.['required'] && form.controls['temperatura'].touched"  style="color: red;"> Temperatura es requerida</span>
-                  <span *ngIf="(form.controls['temperatura'].errors?.['min'] || form.controls['temperatura'].errors?.['max']) && form.controls['temperatura'].touched"  style="color: red;"> Temperatura entre 30 y 45 °C</span>
-              </div>
-          </div>
-          <div class="col-lg-6 col-md-6">
-              <div class="form-box email-icon mb-30">
-                  <label for="">Presion</label>
-                  <br>
-                  <input class="input-field" type="text" formControlName="presion" name="presion" placeholder="Presion" [readonly]="data.consulta">
-                  <span *ngIf="form.controls['presion'].errors?.['required'] && form.controls['presion'].touched"  style="color: red;"> Presion es requerida</span>
-              </div>
-          </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <div class="form-box subject-icon mb-30">
+          <label for="">Altura [cm]</label>
+          <input
+            class="input-field"
+            type="number"
+            formControlName="altura"
+            name="altura"
+            placeholder="Altura"
+            [readonly]="data.consulta"
+          />
+          <span
+            *ngIf="form.controls['altura'].errors?.['required'] && form.controls['altura'].touched"
+            style="color: red"
+          >
+            Altura es requerida</span
+          >
+          <span
+            *ngIf="(form.controls['altura'].errors?.['min'] || form.controls['altura'].errors?.['max']) && form.controls['altura'].touched"
+            style="color: red"
+          >
+            Altura entre 100 y 250 cm</span
+          >
+        </div>
       </div>
-      <div class="section-tittle section-tittle2 mb-35 mt-3" *ngIf="!data.consulta && !esFiltro">
-          <span  style="float: left;" class="mb-1">Agregar datos</span>
-          <button  style="float: left;" type="button" mat-icon-button matTooltip="Agregar dato" class="boton btn-primary ml-3" (click)="agregarDato()" >
-              <mat-icon  class="material-icons">add_circle_outline</mat-icon>
-          </button>
+      <div class="col-lg-6 col-md-6">
+        <div class="form-box subject-icon mb-30">
+          <label for="">Peso [kg]</label>
+          <input
+            class="input-field"
+            type="number"
+            formControlName="peso"
+            name="peso"
+            placeholder="Peso"
+            [readonly]="data.consulta"
+          />
+          <span
+            *ngIf="form.controls['peso'].errors?.['required'] && form.controls['peso'].touched"
+            style="color: red"
+          >
+            Peso es requerido</span
+          >
+          <span
+            *ngIf="(form.controls['peso'].errors?.['min'] || form.controls['peso'].errors?.['max']) && form.controls['peso'].touched"
+            style="color: red"
+          >
+            Peso entre 50 y 200 kg</span
+          >
+        </div>
       </div>
-      <div class="section-tittle section-tittle2 mb-35 mt-3" *ngIf="data.consulta || esFiltro">
-          <span  style="float: left;" class="mb-1">Otros datos</span>
+      <div class="col-lg-6 col-md-6">
+        <div class="form-box user-icon mb-30">
+          <label for="">Temperatura [°C]</label>
+          <input
+            class="input-field"
+            type="number"
+            formControlName="temperatura"
+            name="temperatura"
+            placeholder="Temperatura"
+            [readonly]="data.consulta"
+          />
+          <span
+            *ngIf="form.controls['temperatura'].errors?.['required'] && form.controls['temperatura'].touched"
+            style="color: red"
+          >
+            Temperatura es requerida</span
+          >
+          <span
+            *ngIf="(form.controls['temperatura'].errors?.['min'] || form.controls['temperatura'].errors?.['max']) && form.controls['temperatura'].touched"
+            style="color: red"
+          >
+            Temperatura entre 30 y 45 °C</span
+          >
+        </div>
       </div>
-      <br>
-      <div class="row" style="float: left;">
-          <div class="col-lg-6 col-md-6" *ngIf="indice>=1">
-              <div class="form-box subject-icon mb-30">
-                  <input class="input-field" type="text" formControlName="claveUno" name="claveUno" placeholder="Clave" [readonly]="data.consulta">
-                  <span *ngIf="form.controls['claveUno'].errors?.['required'] && form.controls['claveUno'].touched && indice>=1"  style="color: red;"> Clave es requerida</span>
-              </div>
-          </div>
-          <div class="col-lg-6 col-md-6" *ngIf="indice>=1">
-              <div class="form-box subject-icon mb-30">
-                  <input class="input-field" type="text" formControlName="valorUno" name="valorUno" placeholder="Valor" [readonly]="data.consulta">
-                  <span *ngIf="form.controls['valorUno'].errors?.['required'] && form.controls['valorUno'].touched && indice>=1"  style="color: red;"> Valor es requerido</span>
-              </div>
-          </div>
-          <div class="col-lg-6 col-md-6"*ngIf="indice>=2">
-              <div class="form-box subject-icon mb-30">
-                  <input class="input-field" type="text" formControlName="claveDos" name="claveDos" placeholder="Clave" [readonly]="data.consulta">
-                  <span *ngIf="form.controls['claveDos'].errors?.['required'] && form.controls['claveDos'].touched && indice>=2"  style="color: red;"> Clave es requerida</span>
-              </div>
-          </div>
-          <div class="col-lg-6 col-md-6" *ngIf="indice>=2">
-              <div class="form-box subject-icon mb-30">
-                  <input class="input-field" type="text" formControlName="valorDos" name="valorDos" placeholder="Valor" [readonly]="data.consulta">
-                  <span *ngIf="form.controls['valorDos'].errors?.['required'] && form.controls['valorDos'].touched && indice>=2"  style="color: red;"> Valor es requerido</span>
-              </div>
-          </div>
-          <div class="col-lg-6 col-md-6" *ngIf="indice>=3">
-              <div class="form-box subject-icon mb-30">
-                  <input class="input-field" type="text" formControlName="claveTres" name="claveTres" placeholder="Clave" [readonly]="data.consulta">
-                  <span *ngIf="form.controls['claveTres'].errors?.['required'] && form.controls['claveTres'].touched && indice>=3"  style="color: red;"> Clave es requerida</span>
-              </div>
-          </div>
-          <div class="col-lg-6 col-md-6" *ngIf="indice>=3">
-              <div class="form-box subject-icon mb-30">
-                  <input class="input-field" type="text" formControlName="valorTres" name="valorTres" placeholder="Valor" [readonly]="data.consulta">
-                  <span *ngIf="form.controls['valorTres'].errors?.['required'] && form.controls['valorTres'].touched && indice>=3"  style="color: red;"> Valor es requerido</span>
-              </div>
-          </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="form-box email-icon mb-30">
+          <label for="">Presion</label>
+          <br />
+          <input
+            class="input-field"
+            type="text"
+            formControlName="presion"
+            name="presion"
+            placeholder="Presion"
+            [readonly]="data.consulta"
+          />
+          <span
+            *ngIf="form.controls['presion'].errors?.['required'] && form.controls['presion'].touched"
+            style="color: red"
+          >
+            Presion es requerida</span
+          >
+        </div>
       </div>
-      <div class="col-lg-12 mt-3 mb-3" *ngIf="!data.consulta && !esFiltro">
-          <div class="submit-info mb-3" style="float: left;">
-              <button class="btn" (click)="guardar()">Guardar<i class="ti-arrow-right"></i> </button>
-          </div>
+    </div>
+    <div
+      class="section-tittle section-tittle2 mb-35 mt-3"
+      *ngIf="!data.consulta && !esFiltro"
+    >
+      <span style="float: left" class="mb-1">Agregar datos</span>
+      <button
+        style="float: left"
+        type="button"
+        mat-icon-button
+        matTooltip="Agregar dato"
+        class="boton btn-primary ml-3"
+        (click)="agregarDato()"
+      >
+        <mat-icon class="material-icons">add_circle_outline</mat-icon>
+      </button>
+    </div>
+    <div
+      class="section-tittle section-tittle2 mb-35 mt-3"
+      *ngIf="data.consulta || esFiltro"
+    >
+      <span style="float: left" class="mb-1">Otros datos</span>
+    </div>
+    <br />
+    <div class="row" style="float: left">
+      <div class="col-lg-6 col-md-6" *ngIf="indice >= 1">
+        <div class="form-box subject-icon mb-30">
+          <input
+            class="input-field"
+            type="text"
+            formControlName="claveUno"
+            name="claveUno"
+            placeholder="Clave"
+            [readonly]="data.consulta"
+          />
+          <span
+            *ngIf="form.controls['claveUno'].errors?.['required'] && form.controls['claveUno'].touched && indice>=1"
+            style="color: red"
+          >
+            Clave es requerida</span
+          >
+        </div>
       </div>
+      <div class="col-lg-6 col-md-6" *ngIf="indice >= 1">
+        <div class="form-box subject-icon mb-30">
+          <input
+            class="input-field"
+            type="text"
+            formControlName="valorUno"
+            name="valorUno"
+            placeholder="Valor"
+            [readonly]="data.consulta"
+          />
+          <span
+            *ngIf="form.controls['valorUno'].errors?.['required'] && form.controls['valorUno'].touched && indice>=1"
+            style="color: red"
+          >
+            Valor es requerido</span
+          >
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6" *ngIf="indice >= 2">
+        <div class="form-box subject-icon mb-30">
+          <input
+            class="input-field"
+            type="text"
+            formControlName="claveDos"
+            name="claveDos"
+            placeholder="Clave"
+            [readonly]="data.consulta"
+          />
+          <span
+            *ngIf="form.controls['claveDos'].errors?.['required'] && form.controls['claveDos'].touched && indice>=2"
+            style="color: red"
+          >
+            Clave es requerida</span
+          >
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6" *ngIf="indice >= 2">
+        <div class="form-box subject-icon mb-30">
+          <input
+            class="input-field"
+            type="text"
+            formControlName="valorDos"
+            name="valorDos"
+            placeholder="Valor"
+            [readonly]="data.consulta"
+          />
+          <span
+            *ngIf="form.controls['valorDos'].errors?.['required'] && form.controls['valorDos'].touched && indice>=2"
+            style="color: red"
+          >
+            Valor es requerido</span
+          >
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6" *ngIf="indice >= 3">
+        <div class="form-box subject-icon mb-30">
+          <input
+            class="input-field"
+            type="text"
+            formControlName="claveTres"
+            name="claveTres"
+            placeholder="Clave"
+            [readonly]="data.consulta"
+          />
+          <span
+            *ngIf="form.controls['claveTres'].errors?.['required'] && form.controls['claveTres'].touched && indice>=3"
+            style="color: red"
+          >
+            Clave es requerida</span
+          >
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6" *ngIf="indice >= 3">
+        <div class="form-box subject-icon mb-30">
+          <input
+            class="input-field"
+            type="text"
+            formControlName="valorTres"
+            name="valorTres"
+            placeholder="Valor"
+            [readonly]="data.consulta"
+          />
+          <span
+            *ngIf="form.controls['valorTres'].errors?.['required'] && form.controls['valorTres'].touched && indice>=3"
+            style="color: red"
+          >
+            Valor es requerido</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 mt-3 mb-3" *ngIf="!data.consulta && !esFiltro">
+      <div class="submit-info mb-3" style="float: left">
+        <button class="btn" (click)="guardar()">
+          Guardar<i class="ti-arrow-right"></i>
+        </button>
+      </div>
+    </div>
   </form>
 </div>

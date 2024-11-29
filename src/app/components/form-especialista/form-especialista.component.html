@@ -9,7 +9,7 @@
       ></mat-icon>
       <i class="ti-arrow-left"></i>
     </button>
-    <h1>Registrar Especialista</h1>
+    <h2>Registrar Especialista</h2>
   </div>
   <div class="row">
     <div class="col-lg-6 col-md-6">
@@ -179,15 +179,20 @@
         >
       </div>
     </div>
+
     <div class="col-lg-6 col-md-6">
       <div class="form-box subject-icon mb-30">
-          <re-captcha style="float: left;"
+        <re-captcha
+          style="float: left"
           class="mt-4"
           (resolved)="executeRecaptcha($event)"
           siteKey="6LeWnn4qAAAAAOnQHsa4PdKgaTmKBeUVbzZmv6we"
-          ></re-captcha>
+        ></re-captcha>
       </div>
-  </div>
-    <button class="submit_class" (click)="enviar()">Enviar</button>
+    </div>
+
+    <button appFocusBorder class="submit_class" (click)="enviar()">
+      Enviar
+    </button>
   </div>
 </form>

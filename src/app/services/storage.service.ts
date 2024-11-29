@@ -7,24 +7,22 @@ import {
 } from '@angular/fire/storage';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class StorageService {
+  storage = inject(Storage);
 
-  storage = inject(Storage)
+  constructor() {}
 
-  constructor() { }
-
-  async guardarFoto(dataUrl:any,ruta:string){
+  async guardarFoto(dataUrl: any, ruta: string) {
     let hora = new Date().getTime();
-    let ubicacion = "/"+ruta+"/"+ hora;
-    const imgRef = ref(this.storage, ubicacion)
-    
-    return await uploadBytes(imgRef,dataUrl).then(async()=>{
-      return await getDownloadURL(imgRef)
-        .then( async (imgUrl) => {
-          return imgUrl;
-       });
-    })
+    let ubicacion = '/' + ruta + '/' + hora;
+    const imgRef = ref(this.storage, ubicacion);
+
+    return await uploadBytes(imgRef, dataUrl).then(async () => {
+      return await getDownloadURL(imgRef).then(async (imgUrl) => {
+        return imgUrl;
+      });
+    });
   }
 }

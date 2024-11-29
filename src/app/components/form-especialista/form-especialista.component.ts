@@ -25,6 +25,7 @@ import {
   RecaptchaSettings,
   RECAPTCHA_LANGUAGE,
 } from 'ng-recaptcha';
+import { FocusDirective } from '../../directivas/focus.directive';
 
 @Component({
   selector: 'app-form-especialista',
@@ -35,6 +36,7 @@ import {
     MatIconModule,
     RecaptchaModule,
     MatProgressSpinnerModule,
+    FocusDirective,
   ],
   templateUrl: './form-especialista.component.html',
   styleUrl: './form-especialista.component.css',

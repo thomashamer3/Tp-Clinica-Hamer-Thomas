@@ -1,88 +1,149 @@
 <div class="container-a">
-    <form id="login_form" class="form_class" [formGroup]="form" (ngSubmit)="ingresar()">
-      <div>
-        <button class="btn about-btn" (click)="volver()">
-          <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
-          <i class="ti-arrow-left"></i>
+  <form
+    id="login_form"
+    class="form_class"
+    [formGroup]="form"
+    (ngSubmit)="ingresar()"
+  >
+    <div>
+      <button class="btn about-btn" (click)="volver()">
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Example home icon"
+          fontIcon="home"
+        ></mat-icon>
+        <i class="ti-arrow-left"></i>
+      </button>
+      <h1>Login</h1>
+    </div>
+    <div class="form_div">
+      <label>Mail:</label>
+      <input
+        class="field_class"
+        name="login_txt"
+        type="text"
+        formControlName="email"
+        placeholder="Ingrese su mail"
+        autofocus
+      />
+      <label>Password:</label>
+      <input
+        id="pass"
+        class="field_class"
+        name="password_txt"
+        type="password"
+        formControlName="password"
+        placeholder="Ingrese su contraseña"
+      />
+      <button class="submit_class" type="submit" form="login_form">
+        Entrar
+      </button>
+    </div>
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+    <div *ngIf="cargando" class="spinner-container">
+      <mat-progress-spinner
+        mode="indeterminate"
+        diameter="30"
+        color="primary"
+      ></mat-progress-spinner>
+    </div>
+  </form>
+
+  <div class="quick-access">
+    <h3>Usuarios Rápidos</h3>
+    <div class="fav-button" (click)="toggleUserOptions()"></div>
+    <div class="user-options" *ngIf="showUserOptions">
+      <!-- Administrador -->
+      <div class="user-item">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1730379569325?alt=media&token=516888f5-a095-49cb-b7c6-ebd7e91ac0fa"
+          alt="Administrador"
+          class="user-image"
+        />
+        <button
+          class="btn_fav"
+          (click)="userX('saxim86622@aleitar.com', 'saxim86622@aleitar.com')"
+        >
+          Administrador
         </button>
-        <h1>Login</h1>
       </div>
-      <div class="form_div">
-        <label>Mail:</label>
-        <input class="field_class" name="login_txt" type="text" formControlName="email" placeholder="Ingrese su mail" autofocus>
-        <label>Password:</label>
-        <input id="pass" class="field_class" name="password_txt" type="password" formControlName="password" placeholder="Ingrese su contraseña">
-        <button class="submit_class" type="submit" form="login_form">Entrar</button>
+
+      <!-- Especialista 1 -->
+      <div class="user-item">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1732143910465?alt=media&token=6f3e45ce-abea-4461-890b-9d8994d9bbde"
+          alt="Especialista 1"
+          class="user-image"
+        />
+        <button
+          class="btn_fav"
+          (click)="userX('jabevoy730@gitated.com', 'jabevoy730@gitated.com')"
+        >
+          Especialista 1
+        </button>
       </div>
-      <div *ngIf="errorMessage" class="error-message">
-        <p>{{ errorMessage }}</p>
+
+      <!-- Especialista 2 -->
+      <div class="user-item">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1732136014483?alt=media&token=e91b3847-08f9-4874-a0c4-a99af8a406ac"
+          alt="Especialista 2"
+          class="user-image"
+        />
+        <button
+          class="btn_fav"
+          (click)="userX('cajina9445@cpaurl.com', 'cajina9445@cpaurl.com')"
+        >
+          Especialista 2
+        </button>
       </div>
-      <div *ngIf="cargando" class="spinner-container">
-        <mat-progress-spinner mode="indeterminate" diameter="30" color="primary"></mat-progress-spinner>
+
+      <!-- Paciente 1 -->
+      <div class="user-item">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1730382207135?alt=media&token=e8e4f79a-b0e3-4ae9-936d-5d87353276e7"
+          alt="Paciente 1"
+          class="user-image"
+        />
+        <button
+          class="btn_fav"
+          (click)="userX('wexav40277@aqqor.com', 'wexav40277@aqqor.com')"
+        >
+          Paciente 1
+        </button>
       </div>
-    </form>
-  
-    <div class="quick-access">
-      <h3>Usuarios Rápidos</h3>
-      <div class="fav-button" (click)="toggleUserOptions()"></div>
-      <div class="user-options" *ngIf="showUserOptions">
-        <!-- Administrador -->
-        <div class="user-item">
-          <img 
-            src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1730379569325?alt=media&token=516888f5-a095-49cb-b7c6-ebd7e91ac0fa" 
-            alt="Administrador" 
-            class="user-image"
-          />
-          <button class="btn_fav" (click)="userX('saxim86622@aleitar.com', 'saxim86622@aleitar.com')">
-            Administrador
-          </button>
-        </div>
-  
-        <!-- Especialista 1 -->
-        <div class="user-item">
-          <img src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1732143910465?alt=media&token=6f3e45ce-abea-4461-890b-9d8994d9bbde"
-          alt="Especialista 1" class="user-image" />
-          <button class="btn_fav" (click)="userX('jabevoy730@gitated.com', 'jabevoy730@gitated.com')">
-            Especialista 1
-          </button>
-        </div>
-  
-        <!-- Especialista 2 -->
-        <div class="user-item">
-          <img src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1732136014483?alt=media&token=e91b3847-08f9-4874-a0c4-a99af8a406ac"
-          alt="Especialista 2" class="user-image" />
-          <button class="btn_fav" (click)="userX('cajina9445@cpaurl.com', 'cajina9445@cpaurl.com')">
-            Especialista 2
-          </button>
-        </div>
-  
-        <!-- Paciente 1 -->
-        <div class="user-item">
-          <img src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1730382207135?alt=media&token=e8e4f79a-b0e3-4ae9-936d-5d87353276e7"
-          alt="Paciente 1" class="user-image" />
-          <button class="btn_fav" (click)="userX('wexav40277@aqqor.com', 'wexav40277@aqqor.com')">
-            Paciente 1
-          </button>
-        </div>
-  
-        <!-- Paciente 2 -->
-        <div class="user-item">
-          <img src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1730988379134?alt=media&token=ee6823cf-5d13-48ff-9ecc-7edc0757b57b"
-          alt="Paciente 2" class="user-image" />
-          <button class="btn_fav" (click)="userX('lakebo4482@cironex.com', '12345678')">
-            Paciente 2
-          </button>
-        </div>
-  
-        <!-- Paciente 3 -->
-        <div class="user-item">
-          <img src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1730988470085?alt=media&token=aa5a30d2-748f-4eb9-bc2b-f2fa9d43be3c"
-          alt="Paciente 3" class="user-image" />
-          <button class="btn_fav" (click)="userX('savaho2369@edectus.com', '12345678')">
-            Paciente 3
-          </button>
-        </div>
+
+      <!-- Paciente 2 -->
+      <div class="user-item">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1730988379134?alt=media&token=ee6823cf-5d13-48ff-9ecc-7edc0757b57b"
+          alt="Paciente 2"
+          class="user-image"
+        />
+        <button
+          class="btn_fav"
+          (click)="userX('lakebo4482@cironex.com', '12345678')"
+        >
+          Paciente 2
+        </button>
+      </div>
+
+      <!-- Paciente 3 -->
+      <div class="user-item">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/tpclinicalabhamer.appspot.com/o/usuarios%2F1730988470085?alt=media&token=aa5a30d2-748f-4eb9-bc2b-f2fa9d43be3c"
+          alt="Paciente 3"
+          class="user-image"
+        />
+        <button
+          class="btn_fav"
+          (click)="userX('savaho2369@edectus.com', '12345678')"
+        >
+          Paciente 3
+        </button>
       </div>
     </div>
   </div>
-  
+</div>

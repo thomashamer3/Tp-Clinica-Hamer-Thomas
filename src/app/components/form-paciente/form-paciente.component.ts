@@ -17,13 +17,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { FirestoreService } from '../../services/firestore.service';
 import { StorageService } from '../../services/storage.service';
 import { MatDialogRef } from '@angular/material/dialog';
-import {
-  RecaptchaModule,
-  RECAPTCHA_SETTINGS,
-  RecaptchaSettings,
-  RECAPTCHA_LANGUAGE,
-} from 'ng-recaptcha';
+import { RecaptchaModule } from 'ng-recaptcha';
 import Swal from 'sweetalert2';
+import { FocusDirective } from '../../directivas/focus.directive';
 @Component({
   selector: 'app-form-paciente',
   standalone: true,
@@ -33,6 +29,7 @@ import Swal from 'sweetalert2';
     MatIconModule,
     RecaptchaModule,
     MatProgressSpinnerModule,
+    FocusDirective,
   ],
   templateUrl: './form-paciente.component.html',
   styleUrl: './form-paciente.component.css',
