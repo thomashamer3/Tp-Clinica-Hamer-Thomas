@@ -11,6 +11,7 @@ import { FirebaseAuthService } from '../../services/firebase-auth.service';
 import { NgIf } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { FocusDirective } from '../../directivas/focus.directive';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
     NgIf,
     MatProgressSpinnerModule,
     MatIconModule,
+    FocusDirective
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
