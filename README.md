@@ -1,5 +1,5 @@
 # [TP Clínica Lab Thomas Hamer](https://tpclinicalabhamer.web.app/)
-
+# https://tpclinicalabhamer.web.app/
 Debemos realizar un sistema según las necesidades y deseos del cliente. Para ello, contamos con una breve descripción de lo que el cliente nos comenta acerca de su negocio:
 
 > “La clínica online, especialista en salud, cuenta actualmente con seis consultorios, dos laboratorios (físicos en la clínica) y una sala de espera general. Está abierta al público de lunes a viernes, en el horario de 8:00 a 19:00, y los sábados, de 8:00 a 14:00. 
